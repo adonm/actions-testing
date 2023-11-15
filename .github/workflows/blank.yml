@@ -1,0 +1,16 @@
+on:
+  push:
+    branches: [main]
+
+jobs:
+  send-modified-files:
+    name: Send advisory files if date is today in the commit
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 2
+
+      - name: Get changes
+        run: git diff --name-only -r HEAD^1 HEAD
